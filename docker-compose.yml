@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  rabbitmq:
+    image: masstransit/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - techchallenge   
+
+  cadastro-api:
+    image: fiap/cadastro-api:latest
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - techchallenge
+
+  gateway-api:
+    image: fiap/gateway-api:latest
+    ports:
+      - "8000:80"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - techchallenge
+
+  persistencia-api:
+    image: fiap/persistencia-api:latest
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - techchallenge
+
+  # prometheus:
+  #   image: prom/prometheus
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - techchallenge
+
+  # grafana:
+  #   image: grafana/grafana
+  #   ports:
+  #     - "3001:3000"
+  #   networks:
+  #     - techchallenge
+
+networks:
+  techchallenge:
+    driver: bridge
