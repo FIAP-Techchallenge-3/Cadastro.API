@@ -6,7 +6,7 @@ env:
   REGISTRY: docker.io
   DOCKER_USER: 'zennbyte'
   DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
-
+#testar edição
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
